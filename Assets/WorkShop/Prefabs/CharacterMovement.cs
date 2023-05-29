@@ -14,10 +14,13 @@ namespace CharacterSystem
         private GameObject charModel;
 
         // 카메라 오브젝트 관련 변수
-        
+        [Space(10f)]
         public Transform cameraFollow = null;
+        [Range(1f, 100f)]
+        public float camRotSpeed = 5f;
 
         // 캐릭터 이동 관련 속성
+        [Space(10f)]
         public float Speed = 1; // 걷기 속도
         public float RunSpeedMag = 1.5f; // 달리기 속도는 걷기 속도의 배율
         private float isSpeed;  // 합계 계산 속도값
@@ -75,7 +78,7 @@ namespace CharacterSystem
 
         public void LookAround()
         {
-            Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * camRotSpeed;
             Vector3 CamAngle = cameraFollow.rotation.eulerAngles;
 
             float x = CamAngle.x - mouseDelta.y;
