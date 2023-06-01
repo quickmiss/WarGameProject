@@ -23,8 +23,10 @@ namespace CharacterSystem
         [Space(10f)]
         public float Speed = 1; // 걷기 속도
         public float RunSpeedMag = 1.5f; // 달리기 속도는 걷기 속도의 배율
-        private float isSpeed;  // 합계 계산 속도값
+        public float isSpeed;  // 합계 계산 속도값
 
+        public Vector2 inputValue;  // 키보드 입력값 ( 애니메이션 전환을 위한 변수 )
+        public Rigidbody rigidbody;
 
         private void Start()
         {
@@ -47,8 +49,9 @@ namespace CharacterSystem
             
 #if UNITY_EDITOR_WIN || UNITY_EDITOR
 
-            Rigidbody rigidbody = moveObj.GetComponent<Rigidbody>();
-            Vector2 inputValue = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            rigidbody = moveObj.GetComponent<Rigidbody>();
+            inputValue = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+            
 
             // 달리기  ( 키는 LeftShift )
             if (Input.GetKey(KeyCode.LeftShift))
@@ -69,7 +72,7 @@ namespace CharacterSystem
 
                 rigidbody.velocity = moveDir * isSpeed;
             }
-
+            
             
 
             
